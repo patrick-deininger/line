@@ -9,9 +9,10 @@ const Color kFancyBlue = Color(0xFF4C8BF5);
 /// Example event class.
 class ExerciseData {
   final String title;
+  final bool isDone;
   final void Function(BuildContext context)? onTap;
 
-  const ExerciseData({required this.title, this.onTap});
+  const ExerciseData({required this.title, this.onTap, this.isDone = false});
 
   @override
   String toString() => title;
@@ -25,11 +26,14 @@ final kExercises = LinkedHashMap<DateTime, List<ExerciseData>>(
   hashCode: getHashCode,
 )..addAll(_kExerciseSource);
 
-final _kExerciseSource = Map.fromIterable(List.generate(50, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
-    value: (item) => List.generate(item % 4 + 1,
-        (index) => ExerciseData(title: 'Event $item | ${index + 1}')))
-  ..addAll({
+final _kExerciseSource = Map.fromIterable(
+  List.generate(50, (index) => index),
+  key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
+  value: (item) => List.generate(
+    item % 4 + 1,
+    (index) => ExerciseData(title: 'Event $item | ${index + 1}', isDone: true),
+  ),
+)..addAll({
     kToday: [
       ExerciseData(title: 'World\'s Greatest Stretch'),
       ExerciseData(
@@ -113,8 +117,8 @@ class _PreventionPanelState extends State<PreventionPanel> {
           focusedDay: _focusedDay,
           calendarFormat: _calendarFormat,
           calendarStyle: CalendarStyle(
-            markerDecoration: const BoxDecoration(
-              color: kFancyBlue,
+            markerDecoration: BoxDecoration(
+              color: kFancyBlue.withAlpha(64),
               shape: BoxShape.circle,
             ),
             markerMargin: EdgeInsets.symmetric(horizontal: 1.0),
@@ -157,6 +161,12 @@ class Exercise extends StatelessWidget {
 
   final ExerciseData data;
 
+  Color getForegroundColor() =>
+      data.isDone ? Colors.green.shade700 : Colors.blueAccent.shade400;
+
+  Color getBackgroundColor() =>
+      data.isDone ? Colors.green.shade50 : Colors.blue.shade50;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -165,17 +175,36 @@ class Exercise extends StatelessWidget {
         vertical: 4.0,
       ),
       decoration: BoxDecoration(
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(12.0),
-        color: kFancyBlue,
+        border: Border.all(color: getForegroundColor()),
+        borderRadius: BorderRadius.circular(5.0),
       ),
-      child: ListTile(
-        onTap: () {
-          if (data.onTap != null) {
-            data.onTap!(context);
-          }
-        },
-        title: Text(data.title),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: ListTile(
+          tileColor: getBackgroundColor(),
+          onTap: () {
+            if (data.onTap != null) {
+              data.onTap!(context);
+            }
+          },
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                data.title,
+                style: TextStyle(
+                  color: getForegroundColor(),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              if (data.isDone)
+                Icon(
+                  Icons.check_circle,
+                  color: getForegroundColor(),
+                )
+            ],
+          ),
+        ),
       ),
     );
   }
