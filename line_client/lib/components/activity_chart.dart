@@ -4,10 +4,10 @@ import 'indicator.dart';
 
 class ActivityChart extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => ActivityChartState();
+  State<StatefulWidget> createState() => _ActivityChartState();
 }
 
-class ActivityChartState extends State {
+class _ActivityChartState extends State<ActivityChart> {
   int touchedIndex = -1;
 
   @override
