@@ -46,7 +46,7 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
             height: 150,
             width: MediaQuery.of(context).size.width,
             decoration: new BoxDecoration(
-                color: new Color(0xFF4C8BF5),
+                color: Colors.green.shade300,
                 borderRadius: new BorderRadius.only(
                   topLeft: Radius.circular(12.0),
                   topRight: Radius.circular(12.0),

@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'indicator.dart';
 
+import 'dart:math';
+
+double roundDouble(double value) {
+  double mod = 100.0;
+  return ((value * mod).round().toDouble() / mod);
+}
+
 class RiskChart extends StatefulWidget {
   RiskChart(this.apiResponse);
 
@@ -28,8 +35,8 @@ class _RiskChartState extends State<RiskChart> {
   ];
 
   List<Color> gradientColors3 = [
-    Colors.purple.shade900,
-    Colors.purple.shade800,
+    Colors.red.shade800,
+    Colors.pink.shade900,
   ];
 
   @override
@@ -58,11 +65,11 @@ class _RiskChartState extends State<RiskChart> {
                 ),
                 Indicator(
                   color: Colors.yellow.shade400,
-                  text: 'Load',
+                  text: 'Strain',
                   isSquare: true,
                 ),
                 Indicator(
-                  color: Colors.purple.shade900,
+                  color: Colors.red.shade800,
                   text: 'Risk',
                   isSquare: true,
                 ),
@@ -97,10 +104,12 @@ class _RiskChartState extends State<RiskChart> {
     List<FlSpot> fitnessSpots = [];
     List<FlSpot> riskSpots = [];
     for (var i = 0; i < 20; i++) {
-      loadSpots.add(FlSpot(i.toDouble() / 1.75, loadList[i] / 300));
-      fitnessSpots.add(FlSpot(i.toDouble() / 1.75, fitnessList[i] / 300));
-      riskSpots.add(
-          FlSpot(i.toDouble() / 1.75, (loadList[i] / fitnessList[i]) * 2 + 1));
+      loadSpots
+          .add(FlSpot(i.toDouble() / 1.75, roundDouble(loadList[i] / 300)));
+      fitnessSpots
+          .add(FlSpot(i.toDouble() / 1.75, roundDouble(fitnessList[i] / 300)));
+      riskSpots.add(FlSpot(i.toDouble() / 1.75,
+          roundDouble((loadList[i] / fitnessList[i]) * 2 + 1)));
     }
 
     return LineChartData(

@@ -15,7 +15,8 @@ class ExercisingCounter extends StatefulWidget {
   State<StatefulWidget> createState() => _ExercisingCounterState();
 }
 
-class _ExercisingCounterState extends State<ExercisingCounter> with TickerProviderStateMixin {
+class _ExercisingCounterState extends State<ExercisingCounter>
+    with TickerProviderStateMixin {
   String label = "";
   int count = 0;
   Random rnd = new Random();
@@ -23,7 +24,6 @@ class _ExercisingCounterState extends State<ExercisingCounter> with TickerProvid
   int maxRate = 110;
   int last = 93;
   var steps = [-2, -1, -1, 0, 1, 1, 2];
-
 
   late AnimationController motionController;
   late Animation motionAnimation;
@@ -43,7 +43,6 @@ class _ExercisingCounterState extends State<ExercisingCounter> with TickerProvid
 
     if (widget.mode == 'count') {
       updateCountLabel();
-
     } else {
       updateHeartRateLabel(last);
       generateNextHeartRate();
@@ -73,8 +72,6 @@ class _ExercisingCounterState extends State<ExercisingCounter> with TickerProvid
     motionController.dispose();
     super.dispose();
   }
-
-
 
   void updateCountLabel() {
     setState(() {
@@ -110,25 +107,29 @@ class _ExercisingCounterState extends State<ExercisingCounter> with TickerProvid
                 color: Colors.transparent,
                 child: new Container(
                   decoration: new BoxDecoration(
-                      color: new Color(0xFF4C8BF5),
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black45,
+                        width: 1,
+                      ),
                       borderRadius:
                           new BorderRadius.all(Radius.circular(20.0))),
                   child: new Center(
                     child: new Padding(
-                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
+                        padding: EdgeInsets.only(
+                            top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                                    Icon(
-                                      widget.icon,
-                                      size: size,
-                                      color: Colors.white,
-                                    ),
-
+                            Icon(
+                              widget.icon,
+                              size: size,
+                              color: Colors.black38,
+                            ),
                             Text(
                               this.label,
                               style: GoogleFonts.lato(
-                                color: Colors.white,
+                                color: Colors.black45,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
