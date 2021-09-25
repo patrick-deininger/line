@@ -15,7 +15,7 @@ class ExercisingCounter extends StatefulWidget {
   State<StatefulWidget> createState() => _ExercisingCounterState();
 }
 
-class _ExercisingCounterState extends State<ExercisingCounter> {
+class _ExercisingCounterState extends State<ExercisingCounter> with TickerProviderStateMixin {
   String label = "";
   int count = 0;
   Random rnd = new Random();
@@ -24,20 +24,57 @@ class _ExercisingCounterState extends State<ExercisingCounter> {
   int last = 93;
   var steps = [-2, -1, -1, 0, 1, 1, 2];
 
-  @override
+
+  late AnimationController motionController;
+  late Animation motionAnimation;
+  double size = 20;
   void initState() {
     super.initState();
-    if (widget.mode == 'heart_rate') {
+    motionController = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+      lowerBound: 0.75,
+    );
+
+    motionAnimation = CurvedAnimation(
+      parent: motionController,
+      curve: Curves.ease,
+    );
+
+    if (widget.mode == 'count') {
+      updateCountLabel();
+
+    } else {
       updateHeartRateLabel(last);
       generateNextHeartRate();
-    } else {
-      updateCountLabel();
+
+      motionController.forward();
+      motionController.addStatusListener((status) {
+        setState(() {
+          if (status == AnimationStatus.completed) {
+            motionController.reverse();
+          } else if (status == AnimationStatus.dismissed) {
+            motionController.forward();
+          }
+        });
+      });
+
+      motionController.addListener(() {
+        setState(() {
+          size = motionController.value * 25;
+        });
+      });
     }
+    // motionController.repeat();
   }
 
-  void setLabel(String text) {
-    this.label = text;
+  @override
+  void dispose() {
+    motionController.dispose();
+    super.dispose();
   }
+
+
 
   void updateCountLabel() {
     setState(() {
@@ -78,15 +115,16 @@ class _ExercisingCounterState extends State<ExercisingCounter> {
                           new BorderRadius.all(Radius.circular(20.0))),
                   child: new Center(
                     child: new Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(
-                              widget.icon,
-                              size: 24.0,
-                              color: Colors.white
-                            ),
+                                    Icon(
+                                      widget.icon,
+                                      size: size,
+                                      color: Colors.white,
+                                    ),
+
                             Text(
                               this.label,
                               style: GoogleFonts.lato(
