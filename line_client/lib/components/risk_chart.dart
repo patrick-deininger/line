@@ -18,12 +18,18 @@ class _RiskChartState extends State<RiskChart> {
   final List apiResponse;
 
   List<Color> gradientColors1 = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
+    Colors.blue.shade500,
+    Colors.blue.shade700,
   ];
+
   List<Color> gradientColors2 = [
-    const Color(0xffb623e6),
-    const Color(0xffd3029a),
+    Colors.yellow.shade400,
+    Colors.orange.shade300,
+  ];
+
+  List<Color> gradientColors3 = [
+    Colors.purple.shade900,
+    Colors.purple.shade800,
   ];
 
   @override
@@ -46,13 +52,18 @@ class _RiskChartState extends State<RiskChart> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Indicator(
-                  color: Color(0xff23b6e6),
+                  color: Colors.blue.shade600,
                   text: 'Fitness',
                   isSquare: true,
                 ),
                 Indicator(
-                  color: Color(0xffd3029a),
+                  color: Colors.yellow.shade400,
                   text: 'Load',
+                  isSquare: true,
+                ),
+                Indicator(
+                  color: Colors.purple.shade900,
+                  text: 'Risk',
                   isSquare: true,
                 ),
               ],
@@ -84,9 +95,12 @@ class _RiskChartState extends State<RiskChart> {
 
     List<FlSpot> loadSpots = [];
     List<FlSpot> fitnessSpots = [];
+    List<FlSpot> riskSpots = [];
     for (var i = 0; i < 20; i++) {
       loadSpots.add(FlSpot(i.toDouble() / 1.75, loadList[i] / 300));
       fitnessSpots.add(FlSpot(i.toDouble() / 1.75, fitnessList[i] / 300));
+      riskSpots.add(
+          FlSpot(i.toDouble() / 1.75, (loadList[i] / fitnessList[i]) * 2 + 1));
     }
 
     return LineChartData(
@@ -139,11 +153,11 @@ class _RiskChartState extends State<RiskChart> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 1:
-                return '300';
-              case 3:
-                return '600';
+                return 'Low Risk';
+              // case 3:
+              //   return '600';
               case 5:
-                return '900';
+                return 'High Risk';
             }
             return '';
           },
@@ -163,7 +177,7 @@ class _RiskChartState extends State<RiskChart> {
           spots: fitnessSpots,
           isCurved: true,
           colors: gradientColors1,
-          barWidth: 5,
+          barWidth: 2,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
@@ -178,7 +192,7 @@ class _RiskChartState extends State<RiskChart> {
           spots: loadSpots,
           isCurved: true,
           colors: gradientColors2,
-          barWidth: 5,
+          barWidth: 2,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
@@ -187,6 +201,16 @@ class _RiskChartState extends State<RiskChart> {
             show: true,
             colors:
                 gradientColors2.map((color) => color.withOpacity(0.3)).toList(),
+          ),
+        ),
+        LineChartBarData(
+          spots: riskSpots,
+          isCurved: true,
+          colors: gradientColors3,
+          barWidth: 4,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
           ),
         ),
       ],
