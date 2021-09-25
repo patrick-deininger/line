@@ -2,6 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class RiskChart extends StatefulWidget {
+  RiskChart(this.apiResponse);
+
+  final List apiResponse;
+
   @override
   _RiskChartState createState() => _RiskChartState();
 }

@@ -5,6 +5,10 @@ import 'package:line_client/components/prevention_panel.dart';
 import 'package:line_client/components/risk_chart.dart';
 
 class HomePage extends StatefulWidget {
+  HomePage(this.apiResponse);
+
+  final List apiResponse;
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -25,7 +29,7 @@ class _HomePageState extends State<HomePage> {
               Heading(label: "Activity"),
               ActivityChart(),
               Heading(label: "Risk"),
-              RiskChart(),
+              RiskChart(widget.apiResponse),
               Heading(label: "Muscle Load"),
               Image.asset('assets/images/muscle_groups.png'),
               Heading(label: "Your Prevention Plan"),
