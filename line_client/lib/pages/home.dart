@@ -5,11 +5,17 @@ import 'package:line_client/components/prevention_panel.dart';
 import 'package:line_client/components/risk_chart.dart';
 
 class HomePage extends StatefulWidget {
+  Map<String, num> activeMap;
+  HomePage(this.activeMap);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(this.activeMap);
 }
 
 class _HomePageState extends State<HomePage> {
+  Map<String, num> activeMap;
+  _HomePageState(this.activeMap);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Heading(label: "Activity"),
-              ActivityChart(),
+              ActivityChart(this.activeMap),
               Heading(label: "Risk"),
               RiskChart(),
               Heading(label: "Musle Load"),

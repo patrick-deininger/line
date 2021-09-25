@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'indicator.dart';
 
 class ActivityChart extends StatefulWidget {
+  Map<String, num> activeMap;
+  ActivityChart(this.activeMap);
+
   @override
-  State<StatefulWidget> createState() => _ActivityChartState();
+  State<StatefulWidget> createState() => _ActivityChartState(this.activeMap);
 }
 
 class _ActivityChartState extends State<ActivityChart> {
+  Map<String, num> activeMap;
+  _ActivityChartState(this.activeMap);
+
   int touchedIndex = -1;
 
   @override

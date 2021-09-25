@@ -36,16 +36,15 @@ void main() async {
 }
 
 class LineClient extends StatelessWidget {
-  LineClient(this.activeMap);
-
   Map<String, num> activeMap;
+  LineClient(this.activeMap);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Line',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomePage(),
+      home: HomePage(this.activeMap),
     );
   }
 }
