@@ -1,8 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:line_client/utils/fitrockr_api.dart';
 import 'indicator.dart';
 
 class ActivityChart extends StatefulWidget {
+  ActivityChart(this.activities);
+
+  final List<DailyActivity> activities;
+
   @override
   State<StatefulWidget> createState() => _ActivityChartState();
 }

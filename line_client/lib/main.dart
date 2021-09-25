@@ -33,7 +33,7 @@ class LineClient extends StatelessWidget {
     return MaterialApp(
       title: 'Line',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomePage(apiResponse),
+      home: HomePage(apiResponse, activities),
     );
   }
 }

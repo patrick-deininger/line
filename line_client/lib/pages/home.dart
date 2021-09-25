@@ -3,11 +3,13 @@ import 'package:line_client/components/activity_chart.dart';
 import 'package:line_client/components/heading.dart';
 import 'package:line_client/components/prevention_panel.dart';
 import 'package:line_client/components/risk_chart.dart';
+import 'package:line_client/utils/fitrockr_api.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage(this.apiResponse);
+  HomePage(this.apiResponse, this.activities);
 
   final List apiResponse;
+  final List<DailyActivity> activities;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Heading(label: "Activity"),
-              ActivityChart(),
+              ActivityChart(widget.activities),
               Heading(label: "Risk"),
               RiskChart(widget.apiResponse),
               Heading(label: "Muscle Load"),
