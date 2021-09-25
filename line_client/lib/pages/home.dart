@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_client/components/activity_chart.dart';
 import 'package:line_client/components/heading.dart';
 import 'package:line_client/components/risk_chart.dart';
+import 'package:line_client/pages/exercising.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,6 +26,15 @@ class _HomePageState extends State<HomePage> {
               ActivityChart(),
               Heading(label: "Risk"),
               RiskChart(),
+              ElevatedButton(
+                child: const Text('Start Exercise'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ExercisingPage()),
+                  );
+                },
+              ),
             ],
           ),
         ),
