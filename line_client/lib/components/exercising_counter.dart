@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ExercisingCounter extends StatelessWidget {
-  ExercisingCounter({required this.label, required this.icon});
-
-  final String label;
+class ExercisingCounter extends StatefulWidget {
   final IconData icon;
+  const ExercisingCounter ({ Key? key, required this.icon }): super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ExercisingCounterState();
+}
+
+class _ExercisingCounterState extends State<ExercisingCounter> {
+  String label = "abc";
+
+  void setLabel(String text)
+  {
+    this.label = text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +27,9 @@ class ExercisingCounter extends StatelessWidget {
           color: Colors.transparent,
           child: new Container(
             decoration: new BoxDecoration(
-                color: Colors.grey,
-                borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(20.0),
-                  topRight: const Radius.circular(20.0),
-                  bottomLeft: const Radius.circular(20.0),
-                  bottomRight: const Radius.circular(20.0),
+                color: new Color(0xAB7487FF),
+                borderRadius: new BorderRadius.all(
+                    Radius.circular(20.0)
                 )),
             child: new Center(
               child: new Padding(
@@ -31,7 +38,7 @@ class ExercisingCounter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        this.icon,
+                        widget.icon,
                         size: 24.0,
                       ),
                       Text(
