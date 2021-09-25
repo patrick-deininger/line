@@ -13,12 +13,12 @@ class Heading extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 8, top: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             this.label,
             style: GoogleFonts.lato(
-              color: Colors.black87,
+              color: Color(0xff454545),
               fontWeight: FontWeight.w900,
               fontSize: 24,
             ),
@@ -28,7 +28,7 @@ class Heading extends StatelessWidget {
             style: GoogleFonts.lato(
               color: Colors.black38,
               fontWeight: FontWeight.w500,
-              fontSize: 18,
+              fontSize: 14,
             ),
           ),
         ],
