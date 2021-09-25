@@ -3,7 +3,6 @@ import 'package:line_client/components/activity_chart.dart';
 import 'package:line_client/components/heading.dart';
 import 'package:line_client/components/prevention_panel.dart';
 import 'package:line_client/components/risk_chart.dart';
-import 'package:line_client/pages/exercising.dart';
 
 class HomePage extends StatefulWidget {
   @override

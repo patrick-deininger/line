@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:line_client/components/exercise_overlay.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:video_player/video_player.dart';
 
@@ -8,7 +10,8 @@ class ExercisingPage extends StatefulWidget {
 }
 
 class _VideoAppState extends State<ExercisingPage> {
-  VideoPlayerController _controller = VideoPlayerController.asset('assets/out.mp4');
+  VideoPlayerController _controller = VideoPlayerController.asset(
+      'assets/out.mp4');
 
   @override
   void initState() {
@@ -22,39 +25,43 @@ class _VideoAppState extends State<ExercisingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Video Demo',
-      home: Scaffold(
-        body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          )
-              : Container(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+    return Stack(
+      children: <Widget>[
+        MaterialApp(
+          title: 'Video Demo',
+          home: Scaffold(
+            body: Center(
+              child: _controller.value.isInitialized
+                  ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              )
+                  : Container(),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _controller.value.isPlaying
+                      ? _controller.pause()
+                      : _controller.play();
+                });
+              },
+              child: Icon(
+                _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+              ),
+            ),
           ),
         ),
-      ),
+        ExerciseOverlay(),
+      ],
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
+    @override
+    void dispose() {
+      super.dispose();
+      _controller.dispose();
+    }
   }
-
-}
 
 
