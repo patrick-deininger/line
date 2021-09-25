@@ -28,8 +28,8 @@ class _ExerciseOverlayState extends State<ExerciseOverlay> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          ExercisingCounter(icon: Icons.bar_chart),
-                          ExercisingCounter(icon: Icons.repeat),
+                          ExercisingCounter(icon: Icons.bar_chart, mode: 'heart_rate'),
+                          ExercisingCounter(icon: Icons.repeat, mode: 'count'),
                         ]),
                   ),
                 ],
