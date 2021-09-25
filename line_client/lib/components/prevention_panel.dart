@@ -35,7 +35,7 @@ final _kExerciseSource = Map.fromIterable(
   ),
 )..addAll({
     kToday: [
-      ExerciseData(title: 'World\'s Greatest Stretch'),
+      ExerciseData(title: 'World\'s Greatest Stretch', isDone: true),
       ExerciseData(
         title: 'Squats',
         onTap: (context) => Navigator.push(
