@@ -185,7 +185,11 @@ class Exercise extends StatelessWidget {
         color: kFancyBlue,
       ),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          if (data.onTap != null) {
+            data.onTap!(context);
+          }
+        },
         title: Text(data.title),
       ),
     );
