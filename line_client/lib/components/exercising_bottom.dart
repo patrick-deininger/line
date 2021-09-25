@@ -78,7 +78,7 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
                             this.instruction,
                             style: GoogleFonts.lato(
                               color: Colors.black87,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w700,
                               fontSize: 24,
                             ),
                           ))
