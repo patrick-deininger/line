@@ -143,22 +143,7 @@ class _PreventionPanelState extends State<PreventionPanel> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: value.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 4.0,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: ListTile(
-                    onTap: () => print('${value[index]}'),
-                    title: Text('${value[index]}'),
-                  ),
-                );
-              },
+              itemBuilder: (_, index) => Exercise(data: value[index]),
             );
           },
         ),
