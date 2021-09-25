@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ExercisingBottom extends StatefulWidget {
   @override
@@ -6,7 +7,8 @@ class ExercisingBottom extends StatefulWidget {
 }
 
 class _ExercisingBottomState extends State<ExercisingBottom> {
-  var instructions = ['Start standing with feet about shoulder-width apart',
+  var instructions = [
+    'Start standing with feet about shoulder-width apart',
     'Point toes slightly outward',
     'Always keep back straight',
     'Always keep hands off body',
@@ -24,10 +26,8 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
     });
   }
 
-  void getNextInstruction()
-  {
-    if (idx >= instructions.length)
-    {
+  void getNextInstruction() {
+    if (idx >= instructions.length) {
       idx = 0;
     } else {
       idx += 1;
@@ -39,25 +39,56 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-            body: Align(
+    return Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
         child: Container(
-          height: 100,
-          decoration: new BoxDecoration(
-              color: new Color(0xAB7487FF),
-              borderRadius: new BorderRadius.only(
-                topLeft: Radius.circular(12.0),
-                topRight: Radius.circular(12.0),
-              )),
-          child: Text(this.instruction),
-        ),
+            height: 100,
+            width: MediaQuery.of(context).size.width,
+            decoration: new BoxDecoration(
+                color: new Color(0xAB7487FF),
+                borderRadius: new BorderRadius.only(
+                  topLeft: Radius.circular(12.0),
+                  topRight: Radius.circular(12.0),
+                )),
+            child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                            child: Text(
+                          'Next step:',
+                          style: GoogleFonts.lato(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                          ),
+                        ))
+                      ],
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Flexible(
+                              child: Text(
+                            this.instruction,
+                            style: GoogleFonts.lato(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 24,
+                            ),
+                          ))
+                        ])
+                  ],
+                ))),
         onTap: () {
-          print('clicked');
           getNextInstruction();
         },
       ),
-    ));
+    );
   }
 }
