@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:line_client/components/activity_chart.dart';
 import 'package:line_client/components/heading.dart';
+import 'package:line_client/components/prevention_panel.dart';
 import 'package:line_client/components/risk_chart.dart';
+import 'package:line_client/pages/exercising.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,6 +27,10 @@ class _HomePageState extends State<HomePage> {
               ActivityChart(),
               Heading(label: "Risk"),
               RiskChart(),
+              Heading(label: "Musle Load"),
+              Image.asset('assets/images/muscle_groups.png'),
+              Heading(label: "Prevention Plan"),
+              PreventionPanel(),
             ],
           ),
         ),
