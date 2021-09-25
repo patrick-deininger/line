@@ -8,8 +8,8 @@ class ExercisingPage extends StatefulWidget {
 }
 
 class _VideoAppState extends State<ExercisingPage> {
-  VideoPlayerController _controller = VideoPlayerController.asset(
-      'assets/videos/out.mp4');
+  VideoPlayerController _controller =
+      VideoPlayerController.asset('assets/videos/out.mp4');
 
   @override
   void initState() {
@@ -24,30 +24,27 @@ class _VideoAppState extends State<ExercisingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: _controller.value.isInitialized
-                  ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-                  : Container(),
-            ),
+    return MaterialApp(
+      home: Scaffold(
+        body: Stack(children: <Widget>[
+          Center(
+            child: _controller.value.isInitialized
+                ? AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  )
+                : Container(),
           ),
-        ),
-        ExerciseOverlay(),
-      ],
+          ExerciseOverlay()
+        ]),
+      ),
+      //MaterialApp(home: Scaffold(body: Center(child: ))),
     );
   }
 
-    @override
-    void dispose() {
-      super.dispose();
-      _controller.dispose();
-    }
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
-
-
+}

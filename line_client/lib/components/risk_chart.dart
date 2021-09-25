@@ -1,40 +1,94 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import 'indicator.dart';
+
 class RiskChart extends StatefulWidget {
   RiskChart(this.apiResponse);
 
   final List apiResponse;
 
   @override
-  _RiskChartState createState() => _RiskChartState();
+  _RiskChartState createState() => _RiskChartState(this.apiResponse);
 }
 
 class _RiskChartState extends State<RiskChart> {
-  List<Color> gradientColors = [
+  _RiskChartState(this.apiResponse);
+
+  final List apiResponse;
+
+  List<Color> gradientColors1 = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
+  ];
+  List<Color> gradientColors2 = [
+    const Color(0xffb623e6),
+    const Color(0xffd3029a),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 18.0, left: 12.0, top: 24, bottom: 12),
-              child: LineChart(mainData()),
+        Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 1.70,
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      right: 18.0, left: 12.0, top: 24, bottom: 12),
+                  child: LineChart(mainData()),
+                ),
+              ),
             ),
-          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Indicator(
+                  color: Color(0xff23b6e6),
+                  text: 'Fitness',
+                  isSquare: true,
+                ),
+                Indicator(
+                  color: Color(0xffd3029a),
+                  text: 'Load',
+                  isSquare: true,
+                ),
+              ],
+            )
+          ],
         ),
       ],
     );
   }
 
   LineChartData mainData() {
+    List<int> dailyVal = [];
+    for (var day in apiResponse) {
+      dailyVal.add(day["activityMinutes"]);
+    }
+
+    var reversedList = new List<int>.from(dailyVal.reversed);
+
+    List<double> loadList = [];
+    List<double> fitnessList = [];
+    for (var i = 0; i < 20; i++) {
+      loadList
+          .add(reversedList.sublist(i, i + 3).reduce((a, b) => a + b) * 1.0);
+      fitnessList.add(reversedList.sublist(i, i + 3).reduce((a, b) => a + b) *
+              3 /
+              7 +
+          reversedList.sublist(i + 3, i + 7).reduce((a, b) => a + b) * 4 / 7);
+    }
+
+    List<FlSpot> loadSpots = [];
+    List<FlSpot> fitnessSpots = [];
+    for (var i = 0; i < 20; i++) {
+      loadSpots.add(FlSpot(i.toDouble() / 1.75, loadList[i] / 300));
+      fitnessSpots.add(FlSpot(i.toDouble() / 1.75, fitnessList[i] / 300));
+    }
+
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -64,11 +118,11 @@ class _RiskChartState extends State<RiskChart> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 2:
-                return 'MAR';
+                return '10.09.';
               case 5:
-                return 'JUN';
+                return '15.09.';
               case 8:
-                return 'SEP';
+                return '20.09.';
             }
             return '';
           },
@@ -85,11 +139,11 @@ class _RiskChartState extends State<RiskChart> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 1:
-                return '10k';
+                return '300';
               case 3:
-                return '30k';
+                return '600';
               case 5:
-                return '50k';
+                return '900';
             }
             return '';
           },
@@ -106,17 +160,9 @@ class _RiskChartState extends State<RiskChart> {
       maxY: 6,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          spots: fitnessSpots,
           isCurved: true,
-          colors: gradientColors,
+          colors: gradientColors1,
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -125,7 +171,22 @@ class _RiskChartState extends State<RiskChart> {
           belowBarData: BarAreaData(
             show: true,
             colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+                gradientColors1.map((color) => color.withOpacity(0.3)).toList(),
+          ),
+        ),
+        LineChartBarData(
+          spots: loadSpots,
+          isCurved: true,
+          colors: gradientColors2,
+          barWidth: 5,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            colors:
+                gradientColors2.map((color) => color.withOpacity(0.3)).toList(),
           ),
         ),
       ],
