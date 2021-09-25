@@ -4,6 +4,7 @@ import 'package:line_client/pages/home.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:line_client/utils/fitrockr_api.dart';
 
 void main() async {
   final response = await http.get(
@@ -16,29 +17,16 @@ void main() async {
     },
   );
   final List apiResponse = jsonDecode(response.body);
+  final List<DailyActivity> activities = dailyActivitiesFromJson(response.body);
 
-  // Map<String, int> activeMap = {};
-
-  // for (var i = 0; i < responseJson.length; i++) {
-  //   final val = responseJson[i];
-
-  //   if (val["type"] != null &&
-  //       val["duration"] != null &&
-  //       activeMap[val["type"]] != null) {
-  //     activeMap[val["type"]] =
-  //         (val["duration"] as int) ~/ 60 + (activeMap[val["type"]] ?? 0);
-  //   } else {
-  //     activeMap[val["type"]] = (val["duration"] as int) ~/ 60;
-  //   }
-  // }
-
-  runApp(LineClient(apiResponse));
+  runApp(LineClient(apiResponse, activities));
 }
 
 class LineClient extends StatelessWidget {
-  LineClient(this.apiResponse);
+  LineClient(this.apiResponse, this.activities);
 
   final List apiResponse;
+  final List<DailyActivity> activities;
 
   @override
   Widget build(BuildContext context) {
