@@ -39,7 +39,6 @@ class LineClient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Line',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: HomePage(apiResponse, activities),
     );
