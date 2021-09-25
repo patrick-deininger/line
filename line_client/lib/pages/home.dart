@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_client/components/activity_chart.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,11 +15,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
+            ActivityChart(),
           ],
         ),
       ),
