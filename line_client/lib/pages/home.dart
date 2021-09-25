@@ -15,16 +15,18 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Line"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Heading(label: "Activity"),
-            ActivityChart(),
-            Heading(label: "Risk"),
-            RiskChart(),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Heading(label: "Activity"),
+              ActivityChart(),
+              Heading(label: "Risk"),
+              RiskChart(),
+            ],
+          ),
         ),
       ),
     );
