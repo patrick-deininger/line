@@ -21,11 +21,6 @@ class _RiskChartState extends State<RiskChart> {
         AspectRatio(
           aspectRatio: 1.70,
           child: Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(18),
-                ),
-                color: Color(0xff232d37)),
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 18.0, left: 12.0, top: 24, bottom: 12),
@@ -49,7 +44,7 @@ class _RiskChartState extends State<RiskChart> {
               style: TextStyle(
                   fontSize: 12,
                   color:
-                      showAvg ? Colors.white.withOpacity(0.5) : Colors.white),
+                      showAvg ? Colors.white.withOpacity(0.5) : Colors.black),
             ),
           ),
         ),
@@ -64,15 +59,12 @@ class _RiskChartState extends State<RiskChart> {
         drawVerticalLine: true,
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: const Color(0xff37434d),
+            color: Colors.grey.shade300,
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
+          return FlLine(strokeWidth: 0);
         },
       ),
       titlesData: FlTitlesData(
