@@ -3,13 +3,13 @@ import 'package:line_client/components/activity_chart.dart';
 import 'package:line_client/components/heading.dart';
 import 'package:line_client/components/prevention_panel.dart';
 import 'package:line_client/components/risk_chart.dart';
-import 'package:line_client/utils/fitrockr_api.dart';
+import 'package:line_client/utils/activity_api.dart';
 
 class HomePage extends StatefulWidget {
   HomePage(this.apiResponse, this.activities);
 
   final List apiResponse;
-  final List<DailyActivity> activities;
+  final List<Activity> activities;
 
   @override
   _HomePageState createState() => _HomePageState();
