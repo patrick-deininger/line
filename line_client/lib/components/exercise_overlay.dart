@@ -19,8 +19,12 @@ class _ExerciseOverlayState extends State<ExerciseOverlay> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    child: Heading(label: 'Squats'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:
+                    [
+                      Heading(label: 'Squats'),
+                    ]
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -28,8 +32,8 @@ class _ExerciseOverlayState extends State<ExerciseOverlay> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          ExercisingCounter(icon: Icons.bar_chart),
-                          ExercisingCounter(icon: Icons.repeat),
+                          ExercisingCounter(icon: Icons.favorite, mode: 'heart_rate'),
+                          ExercisingCounter(icon: Icons.repeat, mode: 'count'),
                         ]),
                   ),
                 ],

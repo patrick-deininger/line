@@ -43,10 +43,10 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
         child: Container(
-            height: 100,
+            height: 150,
             width: MediaQuery.of(context).size.width,
             decoration: new BoxDecoration(
-                color: new Color(0xAB7487FF),
+                color: new Color(0xFF4C8BF5),
                 borderRadius: new BorderRadius.only(
                   topLeft: Radius.circular(12.0),
                   topRight: Radius.circular(12.0),
@@ -63,7 +63,7 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
                             child: Text(
                           'Next step:',
                           style: GoogleFonts.lato(
-                            color: Colors.black87,
+                            color: Colors.white,
                             fontWeight: FontWeight.w400,
                             fontSize: 18,
                           ),
@@ -77,7 +77,7 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
                               child: Text(
                             this.instruction,
                             style: GoogleFonts.lato(
-                              color: Colors.black87,
+                              color: Colors.white,
                               fontWeight: FontWeight.w700,
                               fontSize: 24,
                             ),
