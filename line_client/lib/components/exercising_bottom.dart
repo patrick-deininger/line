@@ -27,7 +27,7 @@ class _ExercisingBottomState extends State<ExercisingBottom> {
   }
 
   void getNextInstruction() {
-    if (idx >= instructions.length) {
+    if (idx >= instructions.length - 1) {
       idx = 0;
     } else {
       idx += 1;
