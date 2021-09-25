@@ -26,6 +26,7 @@ class _VideoAppState extends State<ExercisingPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: Stack(children: <Widget>[
           Center(
             child: _controller.value.isInitialized
