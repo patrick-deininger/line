@@ -38,14 +38,15 @@ else:
     from fn import vis_frame
 
 if __name__ == "__main__":
-    inputpath = "/home/david/Downloads/line/out1"
-    args.outputpath = "/home/david/Downloads/line/out3"
+    inputpath = "/home/david/Downloads/line/out33"
+    args.outputpath = "/home/david/Downloads/line/out333"
 
     mode = args.mode
     if not os.path.exists(args.outputpath):
         os.mkdir(args.outputpath)
 
-    im_names = [os.path.join(inputpath, fn_) for fn_ in os.listdir(inputpath)]
+    im_names = [os.path.join(inputpath, fn_) for fn_ in os.listdir("/home/david/Downloads/line/in3")]
+    im_names.sort()
 
     # Load input images
     data_loader = ImageLoader(im_names, batchSize=args.detbatch, format="yolo").start()
@@ -82,6 +83,15 @@ if __name__ == "__main__":
                 writer.save(None, None, None, None, None, orig_img, im_name.split("/")[-1])
                 continue
 
+            base_name = im_name.split("/")[-1]
+            base_name_id = int(base_name[3:8])
+
+            # if base_name_id > 200:
+            #     continue
+
+            # if base_name_id < 50 or base_name_id > 75:
+            #     continue
+
             ckpt_time, det_time = getTime(start_time)
             runtime_profile["dt"].append(det_time)
             # Pose Estimation
@@ -100,15 +110,30 @@ if __name__ == "__main__":
             ckpt_time, pose_time = getTime(ckpt_time)
             runtime_profile["pt"].append(pose_time)
             hm = hm.cpu()
-            writer.save(boxes, scores, hm, pt1, pt2, orig_img, im_name.split("/")[-1])
+            # writer.save(boxes, scores, hm, pt1, pt2, orig_img, im_name.split("/")[-1])
 
             hm_data = hm
+
+            label_color = (255, 0, 0)
+
+            # if base_name_id < 75:
+            #     label_color = (0, 0, 255)
+            # elif base_name_id < 102:
+            #     label_color = (255, 0, 0)
+            # elif base_name_id < 115:
+            #     label_color = (0, 255, 0)
+            # elif base_name_id < 171:
+            #     label_color = (255, 0, 0)
+            # elif base_name_id < 185:
+            #     label_color = (0, 255, 0)
+            # else:
+            #     label_color = (255, 0, 0)
 
             preds_hm, preds_img, preds_scores = getPrediction(
                 hm_data, pt1, pt2, args.inputResH, args.inputResW, args.outputResH, args.outputResW
             )
             result = pose_nms(boxes, scores, preds_img, preds_scores)
-            img = vis_frame(orig_img, result)
+            img = vis_frame(orig_img, result, line_color=label_color)
 
             cv2.imwrite(os.path.join(args.outputpath, im_name.split("/")[-1]), img)
 

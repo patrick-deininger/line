@@ -194,7 +194,7 @@ def vis_frame_fast(frame, im_res, format="coco"):
     return img
 
 
-def vis_frame(frame, im_res, format="coco"):
+def vis_frame(frame, im_res, format="coco", line_color=None):
     """
     frame: frame image
     im_res: im_res of predictions
@@ -241,23 +241,26 @@ def vis_frame(frame, im_res, format="coco"):
             (77, 255, 127),
             (0, 255, 255),
         ]  # LHip, RHip, LKnee, Rknee, LAnkle, RAnkle, Neck
-        line_color = [
-            (0, 215, 255),
-            (0, 255, 204),
-            (0, 134, 255),
-            (0, 255, 50),
-            (77, 255, 222),
-            (77, 196, 255),
-            (77, 135, 255),
-            (191, 255, 77),
-            (77, 255, 77),
-            (77, 222, 255),
-            (255, 156, 127),
-            (0, 127, 255),
-            (255, 127, 77),
-            (0, 77, 255),
-            (255, 77, 36),
-        ]
+        if line_color is None:
+            line_color = [
+                (0, 215, 255),
+                (0, 255, 204),
+                (0, 134, 255),
+                (0, 255, 50),
+                (77, 255, 222),
+                (77, 196, 255),
+                (77, 135, 255),
+                (191, 255, 77),
+                (77, 255, 77),
+                (77, 222, 255),
+                (255, 156, 127),
+                (0, 127, 255),
+                (255, 127, 77),
+                (0, 77, 255),
+                (255, 77, 36),
+            ]
+        else:
+            line_color = [line_color] * 16
     elif format == "mpii":
         l_pair = [
             (8, 9),
@@ -317,7 +320,7 @@ def vis_frame(frame, im_res, format="coco"):
                 angle = math.degrees(math.atan2(Y[0] - Y[1], X[0] - X[1]))
                 stickwidth = (kp_scores[start_p] + kp_scores[end_p]) + 1
                 polygon = cv2.ellipse2Poly(
-                    (int(mX), int(mY)), (int(length / 2), int(stickwidth.item())), int(angle), 0, 360, 1
+                    (int(mX), int(mY)), (int(length / 2), int(stickwidth.item() * 2)), int(angle), 0, 360, 1
                 )
                 cv2.fillConvexPoly(bg, polygon, line_color[i])
                 # cv2.line(bg, start_xy, end_xy, line_color[i], (2 * (kp_scores[start_p] + kp_scores[end_p])) + 1)
